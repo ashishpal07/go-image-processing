@@ -9,6 +9,8 @@ import (
 	"github.com/disintegration/imaging"
 )
 
+// var uploadURL = "https://api.gokapturehub.com/upload/single"
+
 // ProcessOverlayImage takes a baseImage and an optional overlayImage and returns a byte
 // representation of the resulting image. If the overlayImage is not provided, it simply
 // returns a byte representation of the baseImage. If the overlayImage is provided, it resizes
@@ -31,6 +33,5 @@ func ProcessOverlayImage(baseImage image.Image, overlayImage image.Image) ([]byt
 		return nil, errors.New("error encoding composite image in overlay process")
 	}
 
-	// TODO: I need to upload this image to s3 using javascript endpoint
 	return buffer.Bytes(), nil
 }

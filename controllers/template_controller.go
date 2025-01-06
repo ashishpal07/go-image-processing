@@ -11,7 +11,7 @@ import (
 
 type TemplateRequest struct {
 	Base    string `json:"base" binding:"required"`
-	Overlay string `jaon:"overlay"`
+	Overlay string `json:"overlay"`
 }
 
 // TemplateController handles HTTP POST requests for overlay image processing.
@@ -24,21 +24,21 @@ type TemplateRequest struct {
 func TemplateController(c *gin.Context) {
 	var req TemplateRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body pr data.", "detail": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body or data.", "detail": err.Error()})
 		return
 	}
 
-	baseImage, err := utils.Base64ToImage(req.Base)
+	baseImage, _, err := utils.FetchImageFromURL(req.Base)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid base image.", "detail": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid base image URL.", "detail": err.Error()})
 		return
 	}
 
 	var overlayImage image.Image
 	if req.Overlay != "" {
-		overlayImage, err = utils.Base64ToImage(req.Overlay)
+		overlayImage, _, err = utils.FetchImageFromURL(req.Overlay)
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid overlay image.", "detail": err.Error()})
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid overlay image URL.", "detail": err.Error()})
 			return
 		}
 	}

@@ -5,6 +5,8 @@ import (
 	"overlay-image/controllers"
 
 	"github.com/gin-gonic/gin"
+	// "github.com/aws/aws-lambda-go/events"
+  // "github.com/aws/aws-lambda-go/lambda"
 )
 
 // Main initializes and starts the server.
@@ -13,7 +15,7 @@ func main() {
 
 	r.POST("/template", controllers.TemplateController)
 
-	err := r.Run(":8000"); 
+	err := r.Run(":8080"); 
 	
 	if err != nil {
 		log.Fatalf("Failed to run server: %v", err)
