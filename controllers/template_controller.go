@@ -43,11 +43,13 @@ func TemplateController(c *gin.Context) {
 		}
 	}
 
-	finalImage, err := services.ProcessOverlayImage(baseImage, overlayImage)
+	uploadedImageURL, err := services.ProcessOverlayImage(baseImage, overlayImage)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error processing overlay image.", "detail": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to process or upload the overlay image.", "detail": err.Error()})
 		return
 	}
 
-	c.Data(http.StatusOK, "image/png", finalImage)
+	c.JSON(http.StatusOK, gin.H{
+        "imageUrl": uploadedImageURL,
+    })
 }
