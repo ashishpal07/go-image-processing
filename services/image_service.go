@@ -33,5 +33,7 @@ func ProcessOverlayImage(baseImage image.Image, overlayImage image.Image) ([]byt
 		return nil, errors.New("error encoding composite image in overlay process")
 	}
 
+	// TODO: upload to S3 and return link
+
 	return buffer.Bytes(), nil
 }
