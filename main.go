@@ -13,6 +13,10 @@ import (
 func main() {
 	r := gin.Default()
 
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, "Hello World!")
+	})
+	
 	r.POST("/template", controllers.TemplateController)
 
 	err := r.Run(":8080"); 
