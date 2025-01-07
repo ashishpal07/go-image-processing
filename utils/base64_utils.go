@@ -43,5 +43,3 @@ func FetchImageFromURL(imageURL string) (image.Image, string, error) {
 
 	return img, format, nil
 }
-
-
